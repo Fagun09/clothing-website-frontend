@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Active Wear | Shades of You</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <style>
+    body {
+      background: #232323;
+      color: #222;
+      font-family: 'Segoe UI', Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+    }
+    .active-wear {
+      background: rgba(255,255,255,0.7);
+      border-radius: 18px;
+      max-width: 1200px;
+      margin: 120px auto 40px auto;
+      padding: 40px 24px 32px 24px;
+      box-shadow: 0 4px 24px rgba(0,0,0,0.08);
+      text-align: center;
+    }
+    .active-wear h2 {
+      font-size: 2.4rem;
+      color: #a259c6;
+      margin-bottom: 10px;
+      letter-spacing: 1px;
+      font-weight: 700;
+    }
+    .section-desc {
+      color: #444;
+      font-size: 1.13rem;
+      margin-bottom: 30px;
+      max-width: 600px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .products {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 32px;
+      justify-content: center;
+      margin-top: 24px;
+    }
+    .product-card {
+      background: #fff;
+      color: #23283a;
+      border-radius: 14px;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.10);
+      width: 340px; /* Increased width */
+      padding: 28px 22px 24px 22px; /* Adjusted padding for bigger card */
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      transition: transform 0.18s, box-shadow 0.18s;
+    }
+    .product-card:hover {
+      transform: translateY(-6px) scale(1.03);
+      box-shadow: 0 6px 24px rgba(162,89,198,0.13);
+    }
+    .product-card img {
+      width: 100%;
+      height: 220px;
+      object-fit: contain; /* Changed from cover to contain */
+      border-radius: 10px;
+      margin-bottom: 14px;
+      background: #fff;
+      display: block;
+    }
+    .product-card p {
+      margin: 6px 0;
+    }
+    .product-desc {
+      font-size: 0.98rem;
+      color: #6c6a8a;
+      min-height: 48px;
+      margin-bottom: 6px;
+    }
+    .product-price {
+      font-weight: 600;
+      color: #a259c6;
+      font-size: 1.08rem;
+      margin-bottom: 10px;
+    }
+    .product-actions {
+      display: flex;
+      gap: 8px;
+      margin-top: 10px;
+      justify-content: center;
+      width: 100%;
+    }
+    .cart-btn {
+      background: #a3c9a8;
+      color: #222;
+      border: none;
+      border-radius: 6px;
+      padding: 7px 14px;
+      font-size: 1rem;
+      cursor: pointer;
+      font-weight: 500;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      transition: background 0.2s, color 0.2s;
+    }
+    .cart-btn:hover {
+      background: #6db193;
+      color: #fff;
+    }
+    .wishlist-btn {
+      background: #ffd6e0;
+      color: #b8005c;
+      border: none;
+      border-radius: 6px;
+      padding: 7px 14px;
+      font-size: 1rem;
+      cursor: pointer;
+      font-weight: 500;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      transition: background 0.2s, color 0.2s;
+    }
+    .wishlist-btn:hover {
+      background: #ffb3c6;
+      color: #c89f7b;
+    }
+    .buy-btn {
+      background: #6c63ff;
+      color: #fff;
+      border: none;
+      border-radius: 6px;
+      padding: 7px 14px;
+      font-size: 1rem;
+      cursor: pointer;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      transition: background 0.2s, color 0.2s;
+    }
+    .buy-btn:hover {
+      background: #4834d4;
+      color: #ffd700;
+    }
+    /* Modal styles */
+    .order-modal {
+      position: fixed;
+      z-index: 2000;
+      left: 0; top: 0; width: 100vw; height: 100vh;
+      background: rgba(0,0,0,0.55);
+      display: flex; align-items: center; justify-content: center;
+    }
+    .order-modal-content {
+      background: #23283a;
+      color: #f3f3f3;
+      border-radius: 18px;
+      padding: 32px 28px 24px 28px;
+      width: 95vw; max-width: 370px;
+      box-shadow: 0 4px 24px rgba(0,0,0,0.18);
+      position: relative;
+      text-align: center;
+    }
+    .order-modal-content h2 {
+      color: #a259c6;
+      margin-bottom: 18px;
+    }
+    .order-modal-content input,
+    .order-modal-content textarea {
+      width: 100%;
+      margin: 10px 0;
+      padding: 10px 12px;
+      border-radius: 7px;
+      border: 1.5px solid #a259c6;
+      background: #181818;
+      color: #f3f3f3;
+      font-size: 1rem;
+      resize: none;
+    }
+    .order-modal-content textarea { min-height: 60px; }
+    .order-modal-content select {
+      width: 100%;
+      margin: 10px 0;
+      padding: 10px 12px;
+      border-radius: 7px;
+      border: 1.5px solid #a259c6;
+      background: #181818;
+      color: #f3f3f3;
+      font-size: 1rem;
+    }
+    .order-submit-btn {
+      background: #a3c9a8;
+      color: #222;
+      border: none;
+      border-radius: 7px;
+      padding: 10px 0;
+      font-size: 1.08rem;
+      font-weight: 600;
+      cursor: pointer;
+      margin-top: 10px;
+      width: 100%;
+      transition: background 0.2s, color 0.2s;
+    }
+    .order-submit-btn:hover {
+      background: #6db193;
+      color: #fff;
+    }
+    .order-modal-close {
+      position: absolute;
+      top: 12px; right: 18px;
+      font-size: 1.7rem;
+      color: #e7c6ff;
+      cursor: pointer;
+    }
+    @media (max-width: 900px) {
+      .products { gap: 18px; }
+      .product-card { width: 180px; padding: 16px 8px 14px 8px; }
+      .product-card img { height: 140px; object-fit: contain; }
+    }
+    @media (max-width: 600px) {
+      .active-wear { padding: 18px 2vw 18px 2vw; }
+      .products { flex-direction: column; align-items: center; }
+      .product-card { width: 95vw; max-width: 340px; }
+      .product-card img { height: 110px; object-fit: contain; }
+    }
+    @media (prefers-color-scheme: dark) {
+      body { background: #181818; color: #f3f3f3; }
+      .active-wear { background: rgba(35,40,58,0.95); }
+      .product-card { background: #23283a; color: #f3f3f3; }
+      .product-desc { color: #bdb7d6; }
+      .product-price { color: #e7c6ff; }
+      .section-desc { color: #d1cbe7; }
+    }
+  </style>
+</head>
+<body>
+<header>
+  <div class="header-grid">
+    <!-- Left: Logo -->
+    <div class="header-left">
+      <div class="logo">
+        <img src="logo.png" alt="Shades of You Logo">
+      </div>
+    </div>
+
+    <!-- Center: Search Bar -->
+    <div class="header-center">
+      <div class="search-bar">
+        <span class="search-icon"><i class="fas fa-search"></i></span>
+        <input type="text" placeholder="Search...">
+      </div>
+    </div>
+
+    <!-- Navigation and Icons -->
+    <div class="header-nav-icons">
+      <nav>
+        <a href="index.html">Home</a>
+      </nav>
+      <a href="login.html" class="login-btn">Login</a>
+      <div class="header-right">
+        <a href="#" class="wishlist" aria-label="Wishlist" style="display: flex; flex-direction: column; align-items: center; text-decoration: none;">
+          <i class="fas fa-heart"></i>
+          <span style="font-size: 0.95em; line-height: 1.1; color: inherit;">Wishlist</span>
+        </a>
+        <a href="#" class="cart" aria-label="Cart" style="display: flex; flex-direction: column; align-items: center; text-decoration: none;">
+          <i class="fas fa-shopping-cart"></i>
+          <span style="font-size: 0.95em; line-height: 1.1; color: inherit;">Cart</span>
+        </a>
+      </div>
+    </div>
+  </div>
+</header>
+
+<section class="active-wear" style="margin-top:100px;">
+  <h2>Active Wear Collection</h2>
+  <p class="section-desc">
+    Move with confidence in our Active Wear collection. Designed for comfort, flexibility, and style—perfect for workouts, yoga, or athleisure!
+  </p>
+  <div class="products">
+    <div class="product-card">
+      <img src="leggins.jpg" alt="High-Waist Leggings">
+      <p><strong>High-Waist Leggings</strong></p>
+      <p class="product-desc">Stretchy and supportive leggings for all your fitness routines.</p>
+      <p class="product-price">₹999</p>
+      <div class="product-actions">
+        <button class="buy-btn"><i class="fas fa-bolt"></i> Buy Now</button>
+        <button class="cart-btn"><i class="fas fa-shopping-cart"></i> Cart</button>
+        <button class="wishlist-btn"><i class="fas fa-heart"></i> Wishlist</button>
+      </div>
+    </div>
+    <div class="product-card">
+      <img src="tanktop.jpg" alt="Tank Top">
+      <p><strong>Tank Top</strong></p>
+      <p class="product-desc">Breathable tank top to keep you cool and dry during intense sessions.</p>
+      <p class="product-price">₹499</p>
+      <div class="product-actions">
+        <button class="buy-btn"><i class="fas fa-bolt"></i> Buy Now</button>
+        <button class="cart-btn"><i class="fas fa-shopping-cart"></i> Cart</button>
+        <button class="wishlist-btn"><i class="fas fa-heart"></i> Wishlist</button>
+      </div>
+    </div>
+    <div class="product-card">
+      <img src="active1.jpg" alt="Tracksuit">
+      <p><strong>Tracksuit</strong></p>
+      <p class="product-desc">Classic tracksuit for a coordinated sporty look, indoors or outdoors.</p>
+      <p class="product-price">₹1,799</p>
+      <div class="product-actions">
+        <button class="buy-btn"><i class="fas fa-bolt"></i> Buy Now</button>
+        <button class="cart-btn"><i class="fas fa-shopping-cart"></i> Cart</button>
+        <button class="wishlist-btn"><i class="fas fa-heart"></i> Wishlist</button>
+      </div>
+    </div>
+    <div class="product-card">
+      <img src="shorts.jpg" alt="Shorts">
+      <p><strong>Shorts</strong></p>
+      <p class="product-desc">Lightweight and flexible shorts, perfect for running, gym, or outdoor workouts.</p>
+      <p class="product-price">₹699</p>
+      <div class="product-actions">
+        <button class="buy-btn"><i class="fas fa-bolt"></i> Buy Now</button>
+        <button class="cart-btn"><i class="fas fa-shopping-cart"></i> Cart</button>
+        <button class="wishlist-btn"><i class="fas fa-heart"></i> Wishlist</button>
+      </div>
+    </div>
+    <div class="product-card">
+      <img src="zipup.jpg" alt="Active Jacket">
+      <p><strong>Active Jacket</strong></p>
+      <p class="product-desc">Lightweight and breathable jacket, perfect for warm-ups, cool-downs, or outdoor runs.</p>
+      <p class="product-price">₹1,299</p>
+      <div class="product-actions">
+        <button class="buy-btn"><i class="fas fa-bolt"></i> Buy Now</button>
+        <button class="cart-btn"><i class="fas fa-shopping-cart"></i> Cart</button>
+        <button class="wishlist-btn"><i class="fas fa-heart"></i> Wishlist</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Order Modal -->
+<div id="orderModal" class="order-modal" style="display:none;">
+  <div class="order-modal-content">
+    <span class="order-modal-close" id="orderModalClose">&times;</span>
+    <h2>Place Your Order</h2>
+    <form id="orderForm">
+      <input type="text" id="orderName" placeholder="Your Name" required>
+      <input type="email" id="orderEmail" placeholder="Your Email" required>
+      <input type="tel" id="orderPhone" placeholder="Phone Number" required pattern="[0-9]{10,}">
+      <textarea id="orderAddress" placeholder="Delivery Address" required></textarea>
+      <select id="orderPayment" required>
+        <option value="" disabled selected>Select Payment Method</option>
+        <option value="cod">Cash on Delivery</option>
+        <option value="upi">UPI</option>
+        <option value="card">Credit/Debit Card</option>
+        <option value="netbanking">Net Banking</option>
+      </select>
+
+      <!-- UPI Details -->
+      <div id="upiDetails" style="display:none; margin-top:10px;">
+        <input type="text" id="upiId" placeholder="Enter UPI ID" required>
+      </div>
+
+      <!-- Card Details -->
+      <div id="cardDetails" style="display:none; margin-top:10px;">
+        <input type="text" id="cardNumber" placeholder="Card Number" maxlength="19" required>
+        <input type="text" id="cardName" placeholder="Name on Card" required>
+        <input type="text" id="cardExpiry" placeholder="MM/YY" maxlength="5" required>
+        <input type="text" id="cardCVV" placeholder="CVV" maxlength="4" required>
+      </div>
+
+      <!-- Net Banking Details -->
+      <div id="netbankingDetails" style="display:none; margin-top:10px;">
+        <input type="text" id="bankName" placeholder="Bank Name" required>
+        <input type="text" id="accountNumber" placeholder="Account Number" required>
+        <input type="text" id="ifsc" placeholder="IFSC Code" required>
+      </div>
+
+      <button type="submit" class="order-submit-btn">Place Order</button>
+    </form>
+  </div>
+</div>
+
+<footer>
+  <p>&copy; 2025 Shades of You. All rights reserved.</p>
+</footer>
+<script src="main.js"></script>
+<script>
+document.querySelectorAll('.buy-btn').forEach(btn => {
+  btn.addEventListener('click', function(e) {
+    e.preventDefault();
+    window.lastScroll = window.scrollY;
+    document.getElementById('orderModal').style.display = 'flex';
+    document.body.style.overflow = 'hidden';
+  });
+});
+document.getElementById('orderModalClose').onclick = function() {
+  document.getElementById('orderModal').style.display = 'none';
+  document.body.style.overflow = '';
+  window.scrollTo(0, window.lastScroll || 0);
+};
+
+// Payment method dynamic fields
+const paymentSelect = document.getElementById('orderPayment');
+const upiDetails = document.getElementById('upiDetails');
+const cardDetails = document.getElementById('cardDetails');
+const netbankingDetails = document.getElementById('netbankingDetails');
+
+paymentSelect.addEventListener('change', function() {
+  upiDetails.style.display = this.value === 'upi' ? 'block' : 'none';
+  cardDetails.style.display = this.value === 'card' ? 'block' : 'none';
+  netbankingDetails.style.display = this.value === 'netbanking' ? 'block' : 'none';
+
+  // Set required attributes dynamically
+  document.getElementById('upiId').required = this.value === 'upi';
+  Array.from(cardDetails.querySelectorAll('input')).forEach(inp => inp.required = this.value === 'card');
+  Array.from(netbankingDetails.querySelectorAll('input')).forEach(inp => inp.required = this.value === 'netbanking');
+});
+
+document.getElementById('orderForm').onsubmit = function(e) {
+  e.preventDefault();
+  document.getElementById('orderModal').style.display = 'none';
+  document.body.style.overflow = '';
+  alert('Order placed!');
+  window.scrollTo(0, window.lastScroll || 0);
+
+  // Reset the form and payment fields to default for next order
+  this.reset();
+  document.getElementById('upiDetails').style.display = 'none';
+  document.getElementById('cardDetails').style.display = 'none';
+  document.getElementById('netbankingDetails').style.display = 'none';
+  document.getElementById('orderPayment').selectedIndex = 0;
+};
+window.onclick = function(event) {
+  const modal = document.getElementById('orderModal');
+  if (event.target === modal) {
+    modal.style.display = 'none';
+    document.body.style.overflow = '';
+    window.scrollTo(0, window.lastScroll || 0);
+  }
+};
+</script>
+</body>
+</html>

@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Login | Shades of You</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <style>
+    body {
+      background: #232323;
+      color: #222;
+      font-family: 'Segoe UI', Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .login-container {
+      background: rgba(255,255,255,0.85);
+      border-radius: 18px;
+      box-shadow: 0 4px 24px rgba(0,0,0,0.08);
+      padding: 40px 32px 32px 32px;
+      max-width: 370px;
+      width: 100%;
+      margin: 40px 0;
+      text-align: center;
+    }
+    .login-container h2 {
+      color: #a259c6;
+      font-size: 2rem;
+      margin-bottom: 18px;
+      font-weight: 700;
+      letter-spacing: 1px;
+    }
+    .login-form {
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+    }
+    .login-form > div {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      margin-bottom: 0;
+    }
+    .login-form label {
+      text-align: left;
+      font-size: 1rem;
+      color: #6c6a8a;
+      margin-bottom: 6px;
+      margin-top: 2px;
+      padding-left: 2px;
+      font-weight: 500;
+    }
+    .login-form input {
+      padding: 10px 12px;
+      border: 1.5px solid #a259c6;
+      border-radius: 7px;
+      font-size: 1rem;
+      background: #f7f6fa;
+      color: #23283a;
+      outline: none;
+      transition: border 0.2s;
+      width: 100%;
+      box-sizing: border-box;
+    }
+    .login-form input:focus {
+      border-color: #6db193;
+    }
+    .login-btn {
+      background: #a3c9a8;
+      color: #222;
+      border: none;
+      border-radius: 7px;
+      padding: 10px 0;
+      font-size: 1.08rem;
+      font-weight: 600;
+      cursor: pointer;
+      margin-top: 10px;
+      transition: background 0.2s, color 0.2s;
+    }
+    .login-btn:hover {
+      background: #6db193;
+      color: #fff;
+    }
+    .login-links {
+      margin-top: 18px;
+      font-size: 0.98rem;
+      color: #6c6a8a;
+    }
+    .login-links a {
+      color: #a259c6;
+      text-decoration: none;
+      margin: 0 6px;
+      transition: color 0.2s;
+    }
+    .login-links a:hover {
+      color: #6db193;
+      text-decoration: underline;
+    }
+    @media (max-width: 600px) {
+      .login-container {
+        padding: 20px 6vw 20px 6vw;
+        max-width: 98vw;
+      }
+    }
+    @media (prefers-color-scheme: dark) {
+      body { background: #181818; color: #f3f3f3; }
+      .login-container { background: rgba(35,40,58,0.97); }
+      .login-form input { background: #23283a; color: #f3f3f3; border-color: #e7c6ff; }
+      .login-form label { color: #bdb7d6; }
+      .login-links { color: #bdb7d6; }
+      .login-links a { color: #e7c6ff; }
+      .login-btn { background: #a259c6; color: #fff; }
+      .login-btn:hover { background: #6db193; color: #23283a; }
+    }
+  </style>
+</head>
+<body>
+  <div class="login-container">
+    <h2>Login to Shades of You</h2>
+    <form class="login-form" id="loginForm">
+      <div>
+        <label for="email">Email</label>
+        <input type="email" id="email" placeholder="Enter your email" required>
+      </div>
+      <div>
+        <label for="phone">Phone Number</label>
+        <input type="tel" id="phone" placeholder="Enter your phone number" pattern="[0-9]{10}" maxlength="10">
+      </div>
+      <div>
+        <label for="password">Password</label>
+        <input type="password" id="password" placeholder="Enter your password" required>
+      </div>
+      <button type="submit" class="login-btn">Login</button>
+    </form>
+    <div class="login-links">
+      <a href="#">Forgot password?</a>
+      <span>|</span>
+      <a href="#">Create an account</a>
+    </div>
+  </div>
+
+  <script>
+    document.getElementById("loginForm").addEventListener("submit", function(e) {
+      e.preventDefault();
+
+      const email = document.getElementById("email").value.trim();
+      const password = document.getElementById("password").value.trim();
+
+      if (email === "" || password === "") {
+        alert("Please fill in all fields.");
+        return;
+      }
+
+      // For demo purposes, no real authentication
+      alert("Login successful!");
+      window.location.href = "index.html"; // Redirect to homepage
+    });
+  </script>
+</body>
+</html>
